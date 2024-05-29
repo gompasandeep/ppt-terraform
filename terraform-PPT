@@ -1,0 +1,28 @@
+3-Tier Architecture on AWS using Terraform
+
+The concept is to organize our application into three Tiers namely: Web/Presentation Tier, Application Tier, and The Data Tier. I'll be explaining each of these below.
+
+Web/Presentation Tier - In this tier of the application architecture, this is where the user interface is deployed. For example, this is where your Nginx server could be deployed to host your App Js frontend.
+
+Application Tier - Here is the heart of the application where most of the process runs this is where business logic happens. In this tier data from the web tier is collected for processing for example your Node js or Php backend can reside here. This tier communicates with the data tier using APIs.
+
+Data Tier - This is the database this is where data processed by the application tier is stored. This can be a relational database system such as DynamoDB
+
+What is Terraform?
+
+Terraform is an open source infrastructure as code that allows you to automate and manage your infrastructure and your platform and services that run on that infrastructure. It also uses declarative language.
+
+Prerequisites:
+
+    An AWS Account.
+    AWS Access and Secret Key. Hint: Create an IAM role that allows programmatic access.
+    Configure your IAM user on Visual Studio Code.
+    Basic knowledge of AWS services and Terraform.
+    Terraform version- v1.2.8
+
+Step 1: Create provider.tf file using the code below:
+
+    The Amazon Web Services provider is used to interact with the many resources supported by AWS
+    Choose your preferred Region and the name of the IAM user you created.
+
+
