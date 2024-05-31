@@ -90,7 +90,7 @@ Step 12: Create a S3.tf:
     IAM Policy for Access: Defines an IAM policy document allowing s3:GetObject for all AWS accounts (data.aws_iam_policy_document.allow_access_from_all_accounts).
     Website Configuration: Configures the S3 bucket for hosting a static website with index.html as the default index document (aws_s3_bucket_website_configuration.static_website_bucket).
 
- Step 13:    
+Step 13:  
 
 
 
