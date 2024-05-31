@@ -25,4 +25,72 @@ Step 1: Create provider.tf file using the code below:
     The Amazon Web Services provider is used to interact with the many resources supported by AWS
     Choose your preferred Region and the name of the IAM user you created.
 
+Step 2: Create a file for backend.tf:
+
+    Backend Configuration: This file ensures that the Terraform state is stored in an S3 bucket, enabling versioning, collaboration, and state locking.   
+
+Step 3: Create a file for the variables.
+
+    Variable python_code_location: This variable holds the path to the Python code for the Lambda function.
+    Variable static_website_bucket_name: This variable holds the name of the S3 bucket for the static website.
+    These variables allow for easy customization of the Terraform configurations without hardcoding values. Next, let's review one of the resource configuration files.
+
+Step 4: Create a vpc.tf file using the code below:
+
+    VPC: Defines the network space.
+    Subnets: Divides the VPC into public and private sections.
+    Internet Gateway: Provides internet access to public subnets.
+    Route Tables: Manages routing for public and private subnets.
+    NAT Gateway: Enables private subnets to access the internet while remaining private.
+
+Step 6: Create a security-group.tf:
+
+    defines firewall rules for your instances or services.
+
+
+Step 7: Create a vpce.tf:
+
+    might create VPC endpoints if your infrastructure needs to access AWS services privately.
+    
+
+Step 8: Create a file for Application Load Balancer.
+
+    ALB: Balances traffic across multiple instances in the public subnets.
+    Target Group: Defines the targets (EC2 instances) for the ALB.
+    Listener: Listens for incoming HTTP requests on port 80 and forwards them to the target group.
+    ASG: Manages the number of EC2 instances in the target group, scaling up or down based on demand.
+
+Step 9: Create a file for Application Load Balancer.
+
+    Policies and Roles: Defines IAM policies and roles for Lambda functions and EC2 instances.
+    Lambda Permissions: Grants Lambda permissions to manage network interfaces, access DynamoDB, and create CloudWatch Logs.
+    EC2 Permissions: Grants EC2 permissions to invoke Lambda functions.
+    Policy Attachments: Associates the defined policies with their respective roles.
+    Instance Profile: Creates an instance profile for EC2 instances to assume the defined role.
+
+Step 10: Create a file for Lambda:
+
+    Archiving Python Code: Uses the archive_file data source to package the Python code into a zip file.
+    Lambda Function Configuration: Defines the AWS Lambda function with its name, role, handler, runtime, and VPC configuration.
+    This setup ensures that your Lambda function (form) has the necessary permissions (lambda_role IAM role), runs on Python 3.12, and is configured to access resources within the specified private subnets (subnet-private-1 and subnet-private-2) and security group (lambda-SG). 
+
+Step 11: Create a launch-template.tf file:
+
+    Ubuntu AMI Data Source: Retrieves the latest Ubuntu AMI.
+    TLS Private Key: Generates an RSA private key for SSH.
+    AWS Key Pair: Creates an AWS key pair from the generated SSH key.
+    Launch Template: Defines a template for launching EC2 instances with specific configurations including instance type, IAM role, security groups, and user data.
+
+Step 12: Create a S3.tf:
+
+    Bucket Creation: Creates an S3 bucket (aws_s3_bucket.static_website_bucket).
+    Ownership Controls: Specifies that bucket ownership is preferred for objects (aws_s3_bucket_ownership_controls.static_website_bucket).
+    Public Access Block: Sets up configurations to allow public access to ACLs and policies (aws_s3_bucket_public_access_block.static_website_bucket).
+    ACL Configuration: Sets the bucket ACL to allow public read access (aws_s3_bucket_acl.static_website_bucket).
+    IAM Policy for Access: Defines an IAM policy document allowing s3:GetObject for all AWS accounts (data.aws_iam_policy_document.allow_access_from_all_accounts).
+    Website Configuration: Configures the S3 bucket for hosting a static website with index.html as the default index document (aws_s3_bucket_website_configuration.static_website_bucket).
+
+ Step 13:    
+
+
 
